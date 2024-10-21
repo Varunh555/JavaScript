@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Magnifier</title>
+    <style>
+       body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.magnifier-container {
+    position: relative;
+    overflow: hidden;
+}
+
+#magnify-image {
+    width: 300px; /* Set the base width of the image */
+    transition: transform 0.2s; /* Smooth transition for scaling */
+}
+
+.magnifier {
+    position: absolute;
+    border: 1px solid #ccc;
+    pointer-events: none; /* Prevent mouse events */
+    display: none; /* Hide by default */
+}
+ 
+    </style>
+</head>
+<body>
+    <div class="magnifier-container">
+        <img id="magnify-image" src="https://d1jyxxz9imt9yb.cloudfront.net/medialib/4268/image/s768x1300/WC202209_LAST_006_430968_reduced.jpg" alt="Magnify Image" />
+    </div>
+    <script>
+        const img = document.getElementById('magnify-image');
+
+img.addEventListener('mousemove', function(e) {
+    const magnifier = document.createElement('div');
+    magnifier.classList.add('magnifier');
+    document.body.appendChild(magnifier);
+    
+    const magnifyScale = 2; // Set the magnification scale
+    const imgRect = img.getBoundingClientRect();
+    
+    // Calculate the position of the magnifier
+    const x = e.clientX - imgRect.left;
+    const y = e.clientY - imgRect.top;
+
+    // Set the magnifier's position and size
+    magnifier.style.width = img.width / magnifyScale + 'px';
+    magnifier.style.height = img.height / magnifyScale + 'px';
+    magnifier.style.left = e.pageX - magnifier.offsetWidth / 2 + 'px';
+    magnifier.style.top = e.pageY - magnifier.offsetHeight / 2 + 'px';
+    magnifier.style.backgroundImage = `url(${img.src})`;
+    magnifier.style.backgroundSize = `${img.width * magnifyScale}px ${img.height * magnifyScale}px`;
+    magnifier.style.backgroundPosition = `-${x * magnifyScale}px -${y * magnifyScale}px`;
+    magnifier.style.display = 'block';
+    
+    img.addEventListener('mouseleave', () => {
+        magnifier.style.display = 'none';
+        magnifier.remove();
+    }, { once: true });
+});
+
+img.addEventListener('mouseleave', function() {
+    const magnifier = document.querySelector('.magnifier');
+    if (magnifier) {
+        magnifier.style.display = 'none';
+        magnifier.remove();
+    }
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.container {
+    max-width: 400px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Reset Password</h2>
+        <form id="resetPasswordForm">
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword" required onCopy="return false" onPaste="return false" onCut="return false">
+            <p id="copyMessage" class="error-message"></p>
+
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" required onCopy="return false" onPaste="return false" onCut="return false">
+            <p id="pasteMessage" class="error-message"></p>
+
+            <button type="submit">Reset Password</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const newPasswordField = document.getElementById('newPassword');
+    const confirmPasswordField = document.getElementById('confirmPassword');
+    const copyMessage = document.getElementById('copyMessage');
+    const pasteMessage = document.getElementById('pasteMessage');
+
+    newPasswordField.addEventListener('copy', function() {
+        copyMessage.textContent = "Copy is restricted";
+        copyMessage.style.display = 'block';
+    });
+
+    newPasswordField.addEventListener('paste', function() {
+        pasteMessage.textContent = "Paste is restricted";
+        pasteMessage.style.display = 'block';
+    });
+
+    confirmPasswordField.addEventListener('copy', function() {
+        copyMessage.textContent = "Copy is restricted";
+        copyMessage.style.display = 'block';
+    });
+
+    confirmPasswordField.addEventListener('paste', function() {
+        pasteMessage.textContent = "Paste is restricted";
+        pasteMessage.style.display = 'block';
+    });
+
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+});
+
+    </script>
+</body>
+</html>
