@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-form {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div>
+                <label for="identifier">Email / Username / Mobile Number:</label>
+                <input type="text" id="identifier" required>
+                <div id="identifierError" class="error"></div>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" required>
+                <div id="passwordError" class="error"></div>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const identifier = document.getElementById('identifier').value;
+            const password = document.getElementById('password').value;
+            let isValid = true;
+
+            
+            document.getElementById('identifierError').innerText = '';
+            document.getElementById('passwordError').innerText = '';
+
+           
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                document.getElementById('passwordError').innerText = 'Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a digit, and a special character.';
+                isValid = false;
+            }
+
+            
+            if (/^\d{10}$/.test(identifier)) {
+                
+            } else if (/^[a-zA-Z]+$/.test(identifier)) {
+               
+            } else if (/^[\w._%+-]+@gmail\.com$/.test(identifier)) {
+               
+            } else {
+                document.getElementById('identifierError').innerText = 'Identifier must be a valid Gmail address, username without spaces/digits, or a 10-digit mobile number.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Login successful!');
+               
+            }
+        });
+    </script>
+</body>
+</html>
